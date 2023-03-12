@@ -1,0 +1,15 @@
+.footer {
+    &__content-bottom {
+        border-top: 0 !important;
+    }
+
+    &__content-bottom-wrapper {
+        justify-content: end;
+    }
+}
+
+#ContactFooter {
+    button[type="submit"] {
+        background-color: rgb(var(--color-foreground));
+    }
+}

@@ -1,0 +1,97 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="testimonials">
+  <div class="page-width">
+    <div class="md:tw-grid md:tw-grid-cols-2 md:tw-gap-10 section-{{ section.id }}-padding">
+      {% for block in section.blocks %}
+        <div class="tw-text-center tw-flex tw-justify-center tw-items-center tw-flex-col tw-mb-20 md:tw-mb-0 tw-relative">
+          <span class="tw-text-8xl tw-absolute tw-z-[-1] -tw-top-16">
+            {% render 'quote-icon' %}
+          </span>
+          <p>{{ block.settings.content }}</p>
+          {% if block.settings.logo != blank %}
+            <img class=" tw-mt-5" src="{{ block.settings.logo | image_url: width: 70 }}" alt="{{ block.settings.alt }}" width="70" height="{{ 50 | divided_by: block.settings.logo.aspect_ratio }}">
+          {% endif %}
+          {% if block.settings.name != blank %}
+            <span class="mt-4 tw-italic tw-text-xl tw-mt-5">-{{ block.settings.name }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Testimonials",
+    "class": "section",
+    "max_blocks": 2,
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 52
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Testimonial",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+          },
+          {
+            "type": "text",
+            "id": "name",
+            "label": "Name"
+          },
+          {
+            "type": "textarea",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+          "name": "Testimonials"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,112 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="tw-max-w-[1500px] tw-mx-auto">
+  <div
+    class="logo-list section-{{ section.id }}-padding" 
+    data-slick='{
+      "slidesToShow": 5,
+      "slidesToScroll": 4,
+      "autoplay": true,
+      "speed": 9000,
+      "autoplaySpeed": 0,
+      "cssEase": "linear",
+      "slidesToScroll": 1,
+      "dots": false,
+      "arrows": false,
+      "centerPadding": "15px",
+      "centerMode": true,
+      "responsive": [
+        {
+          "breakpoint": 768,
+          "settings": {
+            "slidesToShow": 3,
+            "centerMode": true,
+            "centerPadding": "15px"
+          }
+        },
+        {
+          "breakpoint": 480,
+          "settings": {
+            "slidesToShow": 2
+          }
+        }
+      ]
+    }'>
+    {% for block in section.blocks %}
+      {% if block.settings.logo != blank %}
+        <div class="slick-item">
+          <img class="tw-m-auto" src="{{ block.settings.logo | image_url: width: 100 }}" alt="{{ block.settings.alt }}" width="100" height="{{ 50 | divided_by: block.settings.logo.aspect_ratio }}">
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Logo list",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 52
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Url"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Logo list"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,23 @@
+.banner__heading {
+    font-size: 50px;
+}
+
+@media only screen and (min-width: 750px) {
+    .image-banner {
+        &__custom {
+            .banner--content-align-left {
+                &.banner--desktop-transparent {
+                    .banner__box {
+                        max-width: 76rem;
+                    }
+                }
+            }
+
+            .banner__box > * {
+                .banner__buttons {
+                    @apply tw-mt-11;
+                }
+            }
+        }
+    }
+}

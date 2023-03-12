@@ -1,0 +1,17 @@
+@media (min-width: 990px) {
+    .rich-text {
+        &__wrapper {
+            .rich-text {
+                &__blocks {
+                    max-width: 92rem;
+                }
+
+                &__text {
+                    max-width: 54rem;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        }
+    }
+}
